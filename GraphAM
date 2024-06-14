@@ -1,0 +1,85 @@
+import java.util.Arrays;
+import java.util.LinkedList;
+
+// Class for Graph Representation using Adjacency Matrix
+class GraphAdjMatrix {
+    int[][] adjMatrix;
+
+    // Method to initialize the adjacency matrix
+    public void initializeMatrix(int v) {
+        adjMatrix = new int[v][v];
+        for (int[] row : adjMatrix)
+            Arrays.fill(row, 0);
+    }
+
+    // Method to add an edge to the adjacency matrix
+    public void addEdge(int from, int to) {
+        adjMatrix[from][to] = 1;
+        adjMatrix[to][from] = 1;
+    }
+
+    // Method to display the adjacency matrix
+    public void printAdjMatrix() {
+        for (int i = 0; i < adjMatrix.length; i++) {
+            for (int j = 0; j < adjMatrix[i].length; j++) {
+                System.out.print(adjMatrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+
+// Class for Graph Representation using Adjacency List
+class GraphAdjList {
+    LinkedList<Integer>[] adjList;
+
+    // Method to initialize the adjacency list
+    public void initializeList(int v) {
+        adjList = new LinkedList[v];
+        for (int i = 0; i < v; i++)
+            adjList[i] = new LinkedList<>();
+    }
+
+    // Method to add an edge to the adjacency list
+    public void addEdge(int from, int to) {
+        adjList[from].add(to);
+        adjList[to].add(from);
+    }
+
+    // Method to display the adjacency list
+    public void displayAdjList() {
+        for (int i = 0; i < adjList.length; i++) {
+            System.out.print(i);
+            for (int j : adjList[i]) {
+                System.out.print(" -> " + j);
+            }
+            System.out.println();
+        }
+    }
+}
+
+public class GraphRepresentation {
+    public static void main(String[] args) {
+        // Adjacency Matrix Representation
+        GraphAdjMatrix matrixGraph = new GraphAdjMatrix();
+        matrixGraph.initializeMatrix(5);
+        matrixGraph.addEdge(0, 1);
+        matrixGraph.addEdge(0, 4);
+        matrixGraph.addEdge(1, 2);
+        matrixGraph.addEdge(2, 3);
+        matrixGraph.addEdge(3, 4);
+        System.out.println("Adjacency Matrix:");
+        matrixGraph.printAdjMatrix();
+
+        // Adjacency List Representation
+        GraphAdjList listGraph = new GraphAdjList();
+        listGraph.initializeList(5);
+        listGraph.addEdge(0, 1);
+        listGraph.addEdge(0, 4);
+        listGraph.addEdge(1, 2);
+        listGraph.addEdge(2, 3);
+        listGraph.addEdge(3, 4);
+        System.out.println("Adjacency List:");
+        listGraph.displayAdjList();
+    }
+}
