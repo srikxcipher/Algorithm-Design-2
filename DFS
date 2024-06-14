@@ -1,0 +1,58 @@
+package DS;
+import java.util.*;
+
+public class DFS {
+	LinkedList<Integer>[] adj;
+	public void initializeList(int v) {
+		adj = new LinkedList[v];
+		for (int i = 0; i < v; i++)
+			adj[i] = new LinkedList<Integer>();
+	}
+	public void addEdge(int i, int j) {
+		adj[i].add(j);
+		adj[j].add(i);
+	}
+	public void display() {
+		for(int i = 0; i < adj.length; i++) {
+			System.out.print(i);
+			for(int j = 0; j < adj[i].size(); j++)
+				System.out.print("->" + adj[i].get(j));
+			System.out.println(" ");
+		}
+	}
+	// Recursive Depth-First Search traversal
+    private void dfsRecursive(int vertex, boolean[] visited) {
+        visited[vertex] = true; // Mark the current vertex as visited
+        System.out.print(vertex + " "); // Print the current vertex
+
+        // Visit all unvisited neighbors of the current vertex recursively
+        for (int neighbor : adj[vertex]) {
+            if (visited[neighbor]!=true) {
+                dfsRecursive(neighbor, visited);
+            }
+        }
+    }
+
+    // Wrapper method for recursive DFS
+    public void dfs(int start) {
+        boolean[] visited = new boolean[adj.length]; // Initialize visited array
+        dfsRecursive(start, visited); // Call the recursive DFS method
+    }
+	public static void main(String[] args) {
+		DFS list=new DFS();
+		list.initializeList(8);
+        list.addEdge(0, 1);
+        list.addEdge(0, 2);
+        list.addEdge(1, 3);
+        list.addEdge(1, 4);
+        list.addEdge(2, 5);
+        list.addEdge(2, 6);
+        list.addEdge(3, 7);
+        list.addEdge(4, 7);
+        list.addEdge(5, 7);
+        list.addEdge(6, 7);
+        list.display();
+        System.out.println("DFS Traversal:");
+        list.dfs(0); // Start DFS from vertex 0
+	}
+}
