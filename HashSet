@@ -1,0 +1,71 @@
+import java.util.HashSet;
+
+public class HashSetDemo {
+	public static void main(String[] args) {
+		// Create a hash set.
+		HashSet<String> hs = new HashSet<String>();
+		// Add elements to the hash set.
+		hs.add("Banana");
+		hs.add("Apple");
+		hs.add("Mango");
+		System.out.println(hs);
+		System.out.println("Apple present : " + hs.contains("Apple"));
+		System.out.println("Grapes present : " + hs.contains("Grapes"));
+		hs.remove("Apple");
+		System.out.println(hs);
+		System.out.println("Apple present : " + hs.contains("Apple"));
+	}
+}
+
+/*
+[Apple, Mango, Banana]
+Apple present : true
+Grapes present : false
+[Mango, Banana]
+Apple present : false
+*/
+
+
+
+------------------------------------------
+LinkedHashSet
+
+import java.util.LinkedHashSet;
+
+public class LinkedHashSetExample {
+
+    public static void main(String[] args) {
+        // Creating a LinkedHashSet
+        LinkedHashSet<String> linkedHashSet = new LinkedHashSet<>();
+
+        // Adding elements to the LinkedHashSet
+        linkedHashSet.add("Apple");
+        linkedHashSet.add("Banana");
+        linkedHashSet.add("Orange");
+        linkedHashSet.add("Apple"); // Adding duplicate element (will be ignored)
+
+        // Displaying the LinkedHashSet
+        System.out.println("LinkedHashSet: " + linkedHashSet);
+
+        // Checking if an element is present
+        System.out.println("Contains 'Banana': " + linkedHashSet.contains("Banana"));
+
+        // Removing an element
+        linkedHashSet.remove("Orange");
+        System.out.println("After removing 'Orange': " + linkedHashSet);
+
+        // Iterating over the LinkedHashSet
+        System.out.print("Elements in LinkedHashSet: ");
+        for (String element : linkedHashSet) {
+            System.out.print(element + " ");
+        }
+        System.out.println();
+
+        // Size of the LinkedHashSet
+        System.out.println("Size of LinkedHashSet: " + linkedHashSet.size());
+
+        // Clearing the LinkedHashSet
+        linkedHashSet.clear();
+        System.out.println("Cleared LinkedHashSet: " + linkedHashSet);
+    }
+}
