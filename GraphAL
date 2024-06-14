@@ -1,0 +1,59 @@
+import java.util.LinkedList;
+
+public class GraphAL {
+    int count;
+    private LinkedList<LinkedList<Edge>> Adj;
+
+    private static class Edge {
+        private int dest;
+        private int cost;
+
+        public Edge(int dst, int cst) {
+            dest = dst;
+            cost = cst;
+        }
+    }
+
+    public GraphAL(int cnt) {
+        count = cnt;
+        Adj = new LinkedList<>();
+        for (int i = 0; i < cnt; i++) {
+            Adj.add(new LinkedList<Edge>());
+        }
+    }
+
+    private void addDirectedEdge(int source, int dest, int cost) {
+        Edge edge = new Edge(dest, cost);
+        Adj.get(source).add(edge);
+    }
+
+    public void addUndirectedEdge(int source, int dest, int cost) {
+        addDirectedEdge(source, dest, cost);
+        addDirectedEdge(dest, source, cost);
+    }
+
+    public void addUndirectedEdge(int source, int dest) {
+        addUndirectedEdge(source, dest, 1);
+    }
+
+    public void print() {
+        for (int i = 0; i < count; i++) {
+            LinkedList<Edge> ad = Adj.get(i);
+            System.out.println("\nVertex " + i + " is connected to:");
+            for (Edge adn : ad) {
+                System.out.println("(" + adn.dest + ", " + adn.cost + ")");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        GraphAL graph = new GraphAL(5);
+        graph.addUndirectedEdge(0, 1, 10);
+        graph.addUndirectedEdge(0, 4, 20);
+        graph.addUndirectedEdge(1, 2, 30);
+        graph.addUndirectedEdge(2, 3, 40);
+        graph.addUndirectedEdge(3, 4, 50);
+
+        graph.print();
+    }
+}
