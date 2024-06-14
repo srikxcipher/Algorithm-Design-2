@@ -1,0 +1,83 @@
+
+/*
+ * A map is an object that stores associations between keys and values, or key/value pairs.
+ Both keys and values are objects. The keys must be unique, but
+the values may be duplicated.
+ */
+import java.util.HashMap;
+
+public class HashMapDemo {
+	public static void main(String[] args) {
+		// Create a hash map.
+		HashMap<String, Integer> hm = new HashMap<String, Integer>();
+		
+		// Put elements into the map
+		hm.put("Apple", 40);
+		hm.put("Banana", 10);
+		hm.put("Mango", 20);
+
+		System.out.println("Size :: " + hm.size());
+		for (String key : hm.keySet())
+			System.out.println(key + " cost :" + hm.get(key));
+		
+		System.out.println("Apple present ::" + hm.containsKey("Apple"));
+		System.out.println("Grapes present :: " + hm.containsKey("Grapes"));
+	}
+}
+
+/*
+Size :: 3
+Apple cost :40
+Mango cost :20
+Banana cost :10
+Apple present ::true
+Grapes present :: false
+*/
+
+---------------------------------------------------
+LinkedHashMap
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+public class LinkedHashMapExample {
+
+    public static void main(String[] args) {
+        // Creating a LinkedHashMap
+        LinkedHashMap<String, Integer> linkedHashMap = new LinkedHashMap<>();
+
+        // Adding elements to the LinkedHashMap
+        linkedHashMap.put("John", 25);
+        linkedHashMap.put("Emily", 30);
+        linkedHashMap.put("Tom", 28);
+
+        // Displaying the LinkedHashMap
+        System.out.println("LinkedHashMap: " + linkedHashMap);
+
+        // Accessing elements by key
+        System.out.println("Age of John: " + linkedHashMap.get("John"));
+
+        // Checking if a key is present
+        System.out.println("Contains key 'Emily': " + linkedHashMap.containsKey("Emily"));
+
+        // Checking if a value is present
+        System.out.println("Contains value 28: " + linkedHashMap.containsValue(28));
+
+        // Removing an entry by key
+        linkedHashMap.remove("Tom");
+        System.out.println("After removing 'Tom': " + linkedHashMap);
+
+        // Iterating over the LinkedHashMap
+        System.out.println("Entries in LinkedHashMap:");
+        for (Map.Entry<String, Integer> entry : linkedHashMap.entrySet()) {
+            System.out.println(entry.getKey() + " : " + entry.getValue());
+        }
+
+        // Size of the LinkedHashMap
+        System.out.println("Size of LinkedHashMap: " + linkedHashMap.size());
+
+        // Clearing the LinkedHashMap
+        linkedHashMap.clear();
+        System.out.println("Cleared LinkedHashMap: " + linkedHashMap);
+    }
+}
