@@ -1,0 +1,90 @@
+public class CountInversions {
+
+    // Counter for the number of inversions
+    private static int inversionCount = 0;
+
+    // Counter for the number of recursive calls
+    private static int recursiveCalls = 0;
+
+    // Function to count inversions using merge sort
+    private static void mergeAndCount(int[] arr, int left, int mid, int right) {
+        // Create temporary arrays
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
+        int[] L = new int[n1];
+        int[] R = new int[n2];
+
+        // Copy data to temporary arrays L[] and R[]
+        for (int i = 0; i < n1; ++i)
+            L[i] = arr[left + i];
+        for (int j = 0; j < n2; ++j)
+            R[j] = arr[mid + 1 + j];
+
+        // Merge the temporary arrays back into arr[left...right]
+        int i = 0, j = 0, k = left;
+        while (i < n1 && j < n2) {
+            if (L[i] <= R[j]) {
+                arr[k++] = L[i++];
+            } else {
+                // This is the key step for counting inversions
+                arr[k++] = R[j++];
+                inversionCount += (mid - (left + i) + 1);
+            }
+        }
+
+        // Copy remaining elements of L[], if any
+        while (i < n1)
+            arr[k++] = L[i++];
+
+        // Copy remaining elements of R[], if any
+        while (j < n2)
+            arr[k++] = R[j++];
+    }
+
+    // Function to recursively divide and merge while counting inversions
+    private static void mergeSortAndCount(int[] arr, int left, int right) {
+        recursiveCalls++;
+        if (left < right) {
+            int mid = left + (right - left) / 2;
+            // Recursively sort and count inversions in left and right halves
+            mergeSortAndCount(arr, left, mid);
+            mergeSortAndCount(arr, mid + 1, right);
+            // Merge two halves and count inversions
+            mergeAndCount(arr, left, mid, right);
+        }
+    }
+
+    // Utility function to print array of size n
+    private static void printArray(int[] arr) {
+        int n = arr.length;
+        for (int i = 0; i < n; ++i)
+            System.out.print(arr[i] + " ");
+        System.out.println();
+    }
+
+    // Function to display original array, sorted array, and inversion count
+    private static void displayArrayAndInversions(int[] arr) {
+        System.out.println("Original Array:");
+        printArray(arr);
+
+        // Reset counters
+        inversionCount = 0;
+        recursiveCalls = 0;
+
+        // Sort array and count inversions
+        mergeSortAndCount(arr, 0, arr.length - 1);
+
+        System.out.println("\nSorted Array:");
+        printArray(arr);
+
+        System.out.println("\nNumber of inversions: " + inversionCount);
+        System.out.println("Number of recursive calls: " + recursiveCalls);
+    }
+
+    // Driver method
+    public static void main(String[] args) {
+        int[] arr = {1, 20, 6, 4, 5};
+        displayArrayAndInversions(arr);
+    }
+}
+ 
