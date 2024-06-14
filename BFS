@@ -1,0 +1,62 @@
+package DS;
+import java.util.ArrayDeque;
+import java.util.LinkedList;
+
+public class BFS {
+	LinkedList<Integer>[] adj;
+	public void initializeList(int v) {
+		adj = new LinkedList[v];
+		for (int i = 0; i < v; i++)
+			adj[i] = new LinkedList<Integer>();
+	}
+	public void addEdge(int i, int j) {
+		adj[i].add(j);
+		adj[j].add(i);
+	}
+	public void display() {
+		for(int i = 0; i < adj.length; i++) {
+			System.out.print(i);
+			for(int j = 0; j < adj[i].size(); j++)
+				System.out.print("->" + adj[i].get(j));
+			System.out.println(" ");
+		}
+	}
+	public void bfs(int start)
+	{
+		ArrayDeque<Integer> queue=new ArrayDeque<>();
+		int element;
+		//Mark all the vertices as not visited (By default set as false)
+		boolean visited[]=new boolean[8];
+		visited[start]=true;
+		queue.add(start);
+		while(queue.size() != 0) {
+			//Dequeue a vertex from queue and print it
+			element=queue.remove();
+			System.out.print(element + " ");
+			//Get all adjacent vertices and mark visited
+			for(int i=0; i<adj[element].size(); i++) {
+				int n=adj[element].get(i);
+				if(visited[n] != true) {
+					queue.add(n);
+					visited[n]=true;
+				}
+			}
+		}				
+	} 
+	public static void main(String[] args) {
+		BFS list=new BFS();
+		list.initializeList(8);
+        list.addEdge(0, 1);
+        list.addEdge(0, 2);
+        list.addEdge(0, 3);
+        list.addEdge(1, 4);
+        list.addEdge(2, 5);
+        list.addEdge(3, 6);
+        list.addEdge(4, 7);
+        list.addEdge(5, 7);
+        list.addEdge(6, 7);
+        list.display();
+        System.out.println("BFS Traversal:");
+        list.bfs(0);
+	}
+}
